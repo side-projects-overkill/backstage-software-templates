@@ -12,8 +12,9 @@ metadata:
     - ci
     - template
 spec:
-  owner: denair@redhat.com
+  owner: hybridx18@gmail.com
   type: website
+
   parameters:
     - title: Provide some simple information
       required:
@@ -26,18 +27,16 @@ spec:
           type: string
           description: Please enter the SPA/Application name
           ui:field: EntityNamePicker
+          ui:autofocus: true
+        path:
+          title: Path Name
+          type: string
+          description: Please path without '/'
+          ui:field: EntityNamePicker
         description:
           title: Description
           type: string
           description: Help others understand what this website is for.
-        owner:
-          title: Owner
-          type: string
-          description: Owner of the component
-          ui:field: OwnerPicker
-          ui:options:
-            allowedKinds:
-              - Group
     - title: Choose a location
       required:
         - repoUrl
