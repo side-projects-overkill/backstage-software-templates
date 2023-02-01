@@ -20,6 +20,7 @@ spec:
       required:
         - spa_name
         - spa_path
+        - owner
       properties:
         spa_name:
           title: SPA Name
@@ -35,7 +36,15 @@ spec:
         description:
           title: Description
           type: string
-          description: Help others understand what this website is for.
+          description: Help others understand what this SPA/Application is for.
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the component
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
     - title: Choose a location
       required:
         - repoUrl
@@ -48,7 +57,7 @@ spec:
             allowedHosts:
               - github.com
   steps:
-    - id: template
+    - id: fetch-base
       name: Fetch Skeleton + Template
       action: fetch:template
       input:
@@ -56,7 +65,7 @@ spec:
         copyWithoutRender:
           - .github/workflows/*
         values:
-          component_id: ${{ parameters.component_id }}
+          component_id: ${{ parameters.spa_name }}
           description: ${{ parameters.description }}
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
           owner: ${{ parameters.owner }}
@@ -67,7 +76,7 @@ spec:
       input:
         allowedHosts:
           - github.com
-        description: This is ${{ parameters.component_id }}
+        description: This is ${{ parameters.spa_name }}
         repoUrl: ${{ parameters.repoUrl }}
 
     - id: register
