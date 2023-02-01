@@ -20,7 +20,6 @@ spec:
       required:
         - spa_name
         - spa_path
-        - author
       properties:
         spa_name:
           title: SPA Name
@@ -28,7 +27,7 @@ spec:
           description: Please enter the SPA/Application name
           ui:field: EntityNamePicker
           ui:autofocus: true
-        path:
+        spa_path:
           title: Path Name
           type: string
           description: Please path without '/'
