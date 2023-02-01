@@ -1,4 +1,4 @@
-## ${{ values.spa_name} }}
+## ${{ values.spa_name }}
 
 ${{ values.description }}
 

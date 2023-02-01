@@ -36,6 +36,14 @@ spec:
           title: Description
           type: string
           description: Help others understand what this SPA/Application is for.
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the component
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
     - title: Choose a location
       required:
         - repoUrl
@@ -59,6 +67,8 @@ spec:
           spa_name: ${{ parameters.spa_name }}
           spa_path: ${{ parameters.spa_path }}
           description: ${{ parameters.description }}
+          destination: ${{ parameters.repoUrl | parseRepoUrl }}
+          owner: ${{ parameters.owner }}
     - id: publish
       name: Publish
       action: publish:github
