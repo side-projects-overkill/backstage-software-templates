@@ -6,7 +6,7 @@ import VitePluginHtmlEnv from 'vite-plugin-html-env'
 // https://vitejs.dev/config/
 export default defineConfig({
   // Change according to what your baseUrl should be
-  base: '/component-registry/',
+  base: '/${{values.spa_path}}',
   plugins: [
     VitePluginHtmlEnv(),
     react(),
