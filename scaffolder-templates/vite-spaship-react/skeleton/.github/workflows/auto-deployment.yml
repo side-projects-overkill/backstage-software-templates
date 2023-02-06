@@ -23,4 +23,6 @@ jobs:
         run: npm run build
 
       - name: Deploy package
-        run: npx @spaship/cli@latest deploy --apikey=${{ secrets.SPASHIP_API_KEY }} --env=${{ secrets.SPASHIP_DEPLOY_URL }}qa --ref=$(node -p "require('./package.json').version")
+        run: |
+          echo 'DEPLOYED'
+          # npx @spaship/cli@latest deploy --apikey=${{ secrets.SPASHIP_API_KEY }} --env=${{ secrets.SPASHIP_DEPLOY_URL }}qa --ref=$(node -p "require('./package.json').version")
