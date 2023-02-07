@@ -3,6 +3,7 @@ site_description: ${{values.description | dump}}
 
 nav:
   - Introduction: index.md
+  - FAQs: faqs.md
 
 plugins:
   - techdocs-core
