@@ -9,4 +9,3 @@ This repository is a collection of software and documentation templates for the 
 ## documentation-templates
 
 The documentation templates provide recommended structure and content for different types of documentation, for example system architecture documents or runbooks.
-
