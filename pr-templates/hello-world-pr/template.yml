@@ -22,9 +22,9 @@ spec:
           ui:autofocus: true
     - title: Provide Repo URL
       required:
-        - service_name
+        - repo_url
       properties:
-        service_name:
+        repo_url:
           title: Name
           type: string
           description: No special chars, numbers as the first char, or dashes as the first or last char. 
