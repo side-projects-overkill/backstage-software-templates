@@ -25,9 +25,9 @@ spec:
         - repo_url
       properties:
         repo_url:
-          title: Name
+          title: Repo URL
           type: string
-          description: No special chars, numbers as the first char, or dashes as the first or last char. 
+          description: Add you repo_url
           ui:autofocus: true
   # here's the steps that are executed in series in the scaffolder backend
   steps:
