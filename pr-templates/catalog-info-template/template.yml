@@ -46,7 +46,7 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
-              - gitlab.cee.com
+              - gitlab.com
 
   steps:
     - id: template
