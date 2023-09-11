@@ -59,7 +59,6 @@ spec:
           ui:options:
             allowedHosts:
               - gitlab.com
-              - gitlab.cee.redhat.com
 
   steps:
     - id: template
