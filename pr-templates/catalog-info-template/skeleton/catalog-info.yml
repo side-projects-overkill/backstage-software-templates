@@ -2,6 +2,10 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: ${{values.name | dump}}
+  title: ${{ values.title | dump}}
+  namespace: ${{ values.namespace | dump}}
+  annotations:
+    jira/project-key: ${{ values.project | dump }}
 spec:
   type: website
   lifecycle: experimental

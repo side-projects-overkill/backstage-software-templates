@@ -24,6 +24,18 @@ spec:
           title: Description
           type: string
           description: Description of the component
+        title:
+          title: Title
+          type: string
+          description: Title of the component
+        namespace:
+          title: Namespace
+          type: string
+          description: Which namespace does the component belong to? e.g. - devex
+        project:
+          title: Jira Project Key
+          type: string
+          description: Project key for your Jira project. e.g. DEE, ONEPLAT, CPCORE, etc;
         targetPath:
           title: Target Path of the repo
           type: string
