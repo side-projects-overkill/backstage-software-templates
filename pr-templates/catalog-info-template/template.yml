@@ -58,7 +58,7 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
-              - gitlab.cee.redhat.com
+              - gitlab.com
 
   steps:
     - id: template
@@ -75,7 +75,7 @@ spec:
       input:
         repoUrl: ${{ parameters.repoUrl }}
         title: Creating catalog-info.yaml ${{ parameters.name }} for backstage
-        allowedHosts: ['gitlab.cee.redhat.com']
+        allowedHosts: ['gitlab.com']
         branchName: ${{ parameters.branchName }}
         description: |
           # New project: ${{ parameters.name }}
