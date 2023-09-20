@@ -2,24 +2,29 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: gitlab-merge-request
-  title: Create catalog-info for gitlab
-  description: Scaffolder template to create catalog-info.yaml
+  title: Create descriptor file(catalog-info.yaml) for GitLab projects
+  description: Scaffolder template to create descriptor file(catalog-info.yaml) for the GitLab Projects.
 spec:
-  owner: user:denair
+  owner: hybridx
   type: service
 
   parameters:
     - title: Fill in some steps
       required:
         - name
+        - branchName
       properties:
         name:
           title: Name
           type: string
-          description:  Name of the component
+          description: Name of the component
           ui:autofocus: true
           ui:options:
             rows: 5
+        branchName:
+          title: Destination Branch Name
+          type: string
+          description: Name of the branch to create in the repository. e.g. main, master, dev; etc
         description:
           title: Description
           type: string
@@ -36,18 +41,18 @@ spec:
           title: Jira Project Key
           type: string
           description: Project key for your Jira project. e.g. DEE, ONEPLAT, CPCORE, etc;
-        targetPath:
-          title: Target Path of the repo
+        cmdb:
+          title: CMDB code
           type: string
-          description: Name of the directory to create in the repository
-        branchName:
-          title: Destination Branch Name
-          type: string
-          description: Name of the branch to create in the repository
-        assignee:
-          title: MR Assignee
-          type: string
-          description: GitLab Handle of the Assignee
+          description: CMDB code for your project. e.g. ONEP-001, etc;
+        # targetPath:
+        #   title: Target Path of the repo
+        #   type: string
+        #   description: Name of the directory to create in the repository (you can leave this blank)
+        # assignee:
+        #   title: MR Assignee
+        #   type: string
+        #   description: GitLab Handle of the Assignee
     - title: Choose a location
       required:
         - repoUrl
@@ -61,31 +66,33 @@ spec:
               - gitlab.com
 
   steps:
-    - id: template
+    - id: fetch-base
       name: Fetch Skeleton + Template
       action: fetch:template
       input:
-        url: ./template
-        targetPath: ${{ parameters.targetPath }}
+        url: ./skeleton
         values:
           name: ${{parameters.name}}
+          title: ${{ parameters.title }}
+          namespace: ${{ parameters.namespace }}
+          project: ${{ parameters.project }}
+          cmdb: ${{ parameters.cmdb }}
     - id: publish
       name: Publish
       action: publish:gitlab:merge-request
       input:
+        allowedHosts: 
+          - gitlab.com
         repoUrl: ${{ parameters.repoUrl }}
-        title: Creating catalog-info.yaml ${{ parameters.name }} for backstage
-        allowedHosts: ['gitlab.com']
         branchName: ${{ parameters.branchName }}
+        title: Creating catalog-info.yaml ${{ parameters.name }} for Red Hat Experience Platform
         description: |
-          # New project: ${{ parameters.name }}
+          # ${{ parameters.name }}
           ${{ parameters.description if parameters.description }}
-        targetPath: ${{ parameters.targetPath if parameters.targetPath else '.' }}
-        commitAction: create
-        removeSourceBranch: true
-        assignee: ${{ parameters.assignee }}
+        # targetPath: ${{ parameters.targetPath if parameters.targetPath else '.' }}
+        # assignee: ${{ parameters.assignee }}
 
   output:
-    links: 
+    links:
       - url: ${{ steps.publish.output.mergeRequestUrl }}
-        title: 'Go to Gitlab MR'
+        title: 'Go to GitLab Merge Request'

@@ -6,6 +6,7 @@ metadata:
   namespace: ${{ values.namespace | dump}}
   annotations:
     jira/project-key: ${{ values.project | dump }}
+    servicenow.com/appcode: ${{ values.cmdb | dump }}
 spec:
   type: website
   lifecycle: experimental
