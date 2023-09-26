@@ -55,8 +55,6 @@ Deployment parameters:
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check [issues page](https://github.com/1-Platform/one-platform/issues). You can also take a look at the [contributing guide](./CONTRIBUTING.md).
-
 ## Show your support
 
 Give a ⭐️ if this project helped you!

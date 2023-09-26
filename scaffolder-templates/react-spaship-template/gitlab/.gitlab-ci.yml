@@ -1,0 +1,28 @@
+default:
+  tags: [shared]
+image: node:18
+
+stages:
+  - unit test
+  - deploySpa
+
+.deploySPA: &deploySPA
+  script:
+    - npm install
+    - npm run build
+    - export VERSION=$(node -p "require('./package.json').version")
+    - npx @spaship/cli@latest deploy --apikey=$API_KEY --env=$QA_DEPLOY_ENV --ref=$VERSION
+
+unit-test:
+  stage: unit test
+  script:
+    - export CI=false
+    - npm install
+    - npm run build
+    - npm test
+    - npm run coverage
+  allow_failure: true
+
+deploy on qa:
+  <<: *deploySPA
+  stage: deploySpa

@@ -4,8 +4,6 @@ site_description: ${{values.description | dump}}
 nav:
   - Introduction: index.md
   - FAQs: faqs.md
-  - Contribution: contribution.md
-  - Code Of Conduct: coc.md
 
 plugins:
   - techdocs-core

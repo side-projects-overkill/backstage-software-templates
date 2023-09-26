@@ -1,18 +1,18 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: vite-react-app-template
-  title: Vite React App Template
+  name: react-with-spaship-template
+  title: React app with SPAship
   description: Create a new react website project for gitlab with basic CI/CD pipeline
   tags:
     - react
     - vite
     - spaship
-    - github
+    - gitlab
     - ci
     - template
 spec:
-  owner: hybridx18@gmail.com
+  owner: hybridx
   type: website
 
   parameters:
@@ -30,7 +30,7 @@ spec:
         spa_path:
           title: Path Name
           type: string
-          description: Please path without '/'
+          description: Please enter path without forward-slash ('/').
           ui:field: EntityNamePicker
         description:
           title: Description
@@ -42,8 +42,9 @@ spec:
           description: Owner of the component
           ui:field: OwnerPicker
           ui:options:
-            allowedKinds:
-              - Group
+            catalogFilter:
+              kind: [Group, User]
+
     - title: Choose a location
       required:
         - repoUrl
@@ -54,6 +55,7 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
+              - gitlab.com
               - github.com
   steps:
     - id: fetch-base
@@ -61,20 +63,33 @@ spec:
       action: fetch:template
       input:
         url: ./skeleton
-        copyWithoutRender:
-          - .github/workflows/*
         values:
           spa_name: ${{ parameters.spa_name }}
           spa_path: ${{ parameters.spa_path }}
           description: ${{ parameters.description }}
-          destination: ${{ parameters.repoUrl | parseRepoUrl }}
+          repoUrl: ${{ parameters.repoUrl }}
           owner: ${{ parameters.owner }}
+
+    - id: fetch-gitlab-ci
+      if: ${{ parameters.repoUrl | parseRepoUrl | pick('host') === 'gitlab.com' }}
+      name: Fetch Gitlab-CI
+      action: fetch:template
+      input: 
+        url: ./gitlab
+
+    - id: fetch-github-action
+      if: ${{ parameters.repoUrl | parseRepoUrl | pick('host') === 'github.com' }}
+      name: Fetch Github Action
+      action: fetch:template
+      input: 
+        url: ./github
+      
     - id: publish
       name: Publish
-      action: publish:github
+      action: publish:gitlab
       input:
         allowedHosts:
-          - github.com
+          - gitlab.com
         description: This is ${{ parameters.spa_name }}
         repoUrl: ${{ parameters.repoUrl }}
         repoVisibility: public
@@ -89,7 +104,7 @@ spec:
   output:
     links:
       - title: Repository
-        url: ${{ steps.publish.output.remoteUrl }}
+        url: ${{ steps.publish.output.remoteUrl }} 
       - title: Open in catalog
         icon: catalog
         entityRef: ${{ steps.register.output.entityRef }}

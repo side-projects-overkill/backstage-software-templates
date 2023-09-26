@@ -29,7 +29,7 @@ where "url you just copied" (without the quotation marks) is the url to this rep
 For example:
 
 ```
-git clone git@gitlab.cee.redhat.com:<this-is-you>/${{values.spa_name}}.git
+git clone git@gitlab.com:<this-is-you>/${{values.spa_name}}.git
 ```
 
 where `this-is-you` is your gitlab username. Here you're copying the contents of the contributions repository on gitlab to your computer.
@@ -100,9 +100,6 @@ Soon maintainers be merging all your changes into the main branch of this projec
 
 - Check if the issue already exsists by clicking on JIRA link in the repository
 
-#### Solve an issue
-
-Scan through our [existing issues](https://issues.redhat.com/browse/${{values.spa_name}}) to find one that interests you. You can narrow down the search using `labels` as filters. 
 
 ### Happy Coding
 
