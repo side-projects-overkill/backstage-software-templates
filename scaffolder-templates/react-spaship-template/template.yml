@@ -85,11 +85,23 @@ spec:
         url: ./github
       
     - id: publish
+      if: ${{ parameters.repoUrl | parseRepoUrl | pick('host') === 'gitlab.com' }}
       name: Publish
       action: publish:gitlab
       input:
         allowedHosts:
           - gitlab.com
+        description: This is ${{ parameters.spa_name }}
+        repoUrl: ${{ parameters.repoUrl }}
+        repoVisibility: public
+    
+    - id: publish
+      if: ${{ parameters.repoUrl | parseRepoUrl | pick('host') === 'github.com' }}
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts:
+          - github.com
         description: This is ${{ parameters.spa_name }}
         repoUrl: ${{ parameters.repoUrl }}
         repoVisibility: public
